@@ -25,8 +25,9 @@ const Home = () => {
         navigate("/");
     }
 }
+
   useEffect(()=>{
-    validuser();
+   validuser();
   },[]);
 
   const handleLogout = async () => {

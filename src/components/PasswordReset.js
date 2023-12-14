@@ -50,6 +50,7 @@ const PasswordReset = () => {
         navigate("/resetpassword")
     }
 }
+let token = localStorage.getItem('Funneltoken');
   useEffect(()=>{
     validuser();
 },[]);

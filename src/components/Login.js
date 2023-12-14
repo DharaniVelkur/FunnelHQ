@@ -4,6 +4,7 @@ import login from "../utils/login.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Link, useNavigate} from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ const Login = () => {
       }),
     });
     const response = await data.json();
- 
+    
     if(data.status===200){
         setSpin(false);
         setEmail("");
@@ -57,13 +58,52 @@ const Login = () => {
     if(res.status===200){
         navigate("/home");
     } else {
-        navigate("/")
+        navigate("/");
     }
 }
+let token = localStorage.getItem('Funneltoken');
   useEffect(()=>{
-    validuser();
-},[])
+   validuser();
+},[]);
 
+
+
+const responseGoogle =async (response) =>{
+  console.log(response);
+  try {
+    setSpin(true);
+    const access_token = response.access_token;
+    const data = await fetch('http://localhost:8000/google-login',{
+      method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": true,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ access_token }),
+    });
+    const result = await data.json();
+    if(data.status===200){
+      setSpin(false);
+      localStorage.setItem('Funneluser', JSON.stringify(result.user));
+        localStorage.setItem('Funneltoken', result.token);
+        toast.success("Logged in Successfully!!");
+        navigate('/home');
+    } else {
+      setSpin(false);
+      toast.error(result.error);
+    }
+    console.log('Response from Google API:', response);
+  } catch (error) {
+    console.error('Error during Google login:', error);
+      setSpin(false);
+      toast.error('Internal Server Error');
+  }
+}
+
+const logins = useGoogleLogin({
+  onSuccess: responseGoogle,
+  // onError:responseGoogle
+});
 
   return (
     <>
@@ -111,8 +151,13 @@ const Login = () => {
             </span></Link>
           </p>
           <p className="text-white pb-6 cursor-pointer hover:underline font-bold" onClick={()=>navigate('/resetpassword')}>Forgot Password?</p>
+          
         </div>
+        <div className="text-center text-white bg-blue-500">
+      <button className="absolute rounded-lg border p-2" onClick={() => logins()}>Sign in with Google 🚀</button> 
+      </div> 
       </div>
+      
       <ToastContainer/>
     </>
   );

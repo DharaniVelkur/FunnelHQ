@@ -65,6 +65,7 @@ const Register = () => {
         navigate("/register")
     }
 }
+
   useEffect(()=>{
     validuser();
 },[])
