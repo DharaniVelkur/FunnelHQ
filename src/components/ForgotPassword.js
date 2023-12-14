@@ -12,7 +12,7 @@ const ForgotPassword = () => {
 
   const uservalid = async () => {
     const response = await fetch(
-      `http://localhost:8000/forgotpassword/${id}/${token}`,
+      `https://funnelhq-backend-ecgm.onrender.com/forgotpassword/${id}/${token}`,
       {
         method: "GET",
         headers: {
@@ -37,7 +37,7 @@ const ForgotPassword = () => {
         toast.error("Password is required!!")
     }
     else {
-        const res = await fetch(`http://localhost:8000/${id}/${token}`, {
+        const res = await fetch(`https://funnelhq-backend-ecgm.onrender.com/${id}/${token}`, {
             method: "POST",
             headers: {
                 "Access-Control-Allow-Origin": true,

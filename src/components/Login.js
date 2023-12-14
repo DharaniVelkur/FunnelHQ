@@ -15,7 +15,7 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     setSpin(true);
-    const data = await fetch("http://localhost:8000/login", {
+    const data = await fetch("https://funnelhq-backend-ecgm.onrender.com/login", {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin": true,
@@ -46,7 +46,7 @@ const Login = () => {
 
   const validuser = async ()=>{
     let token = localStorage.getItem('Funneltoken');
-    const res= await fetch("http://localhost:8000/validuser",{
+    const res= await fetch("https://funnelhq-backend-ecgm.onrender.com/validuser",{
         method:"GET",
         headers:{
             "Access-Control-Allow-Origin":true,
@@ -73,7 +73,7 @@ const responseGoogle =async (response) =>{
   try {
     setSpin(true);
     const access_token = response.access_token;
-    const data = await fetch('http://localhost:8000/google-login',{
+    const data = await fetch('https://funnelhq-backend-ecgm.onrender.com/google-login',{
       method: "POST",
         headers: {
           "Access-Control-Allow-Origin": true,

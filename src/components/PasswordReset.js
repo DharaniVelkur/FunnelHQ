@@ -12,7 +12,7 @@ const PasswordReset = () => {
     const sendLink = async (e) => {
         setSpin(true);
         e.preventDefault();
-        const res = await fetch('http://localhost:8000/sendpasswordlink', {
+        const res = await fetch('https://funnelhq-backend-ecgm.onrender.com/sendpasswordlink', {
             method: 'POST',
             headers: {
                 "Access-Control-Allow-Origin": true,
@@ -35,7 +35,7 @@ const PasswordReset = () => {
     
   const validuser = async ()=>{
     let token = localStorage.getItem('Funneltoken');
-    const res= await fetch("http://localhost:8000/validuser",{
+    const res= await fetch("https://funnelhq-backend-ecgm.onrender.com/validuser",{
         method:"GET",
         headers:{
             "Access-Control-Allow-Origin":true,

@@ -9,7 +9,7 @@ const Home = () => {
 
   const validuser = async ()=>{
     let token = localStorage.getItem('Funneltoken');
-    const res= await fetch("http://localhost:8000/validuser",{
+    const res= await fetch("https://funnelhq-backend-ecgm.onrender.com/validuser",{
         method:"GET",
         headers:{
             "Access-Control-Allow-Origin":true,
@@ -32,7 +32,7 @@ const Home = () => {
 
   const handleLogout = async () => {
     let token = localStorage.getItem("Funneltoken");
-    const logoutuser = await fetch("http://localhost:8000/logout", {
+    const logoutuser = await fetch("https://funnelhq-backend-ecgm.onrender.com/logout", {
         method: "GET",
         headers: {
             "Access-Control-Allow-Origin": true,
